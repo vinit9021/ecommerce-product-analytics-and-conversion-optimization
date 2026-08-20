@@ -29,13 +29,15 @@ Scale:
 ## Analytics Architecture
 
 GA4 Public Events
-→ BigQuery `events_base`
+→ `events_base`
 → `session_summary`
 → `daily_kpis`
-→ Funnel and product analysis
+→ ordered funnel
+→ segmentation
+→ product analysis
 → Python statistics
 → Power BI
-→ Product recommendations
+→ product recommendations
 
 ## Primary Funnel
 
@@ -46,20 +48,41 @@ Product View
 → Payment Information
 → Purchase
 
-## BigQuery Models
+## Current BigQuery Models
 
-### `events_base`
+- `events_base`
+- `session_summary`
+- `daily_kpis`
+- `ordered_funnel_sessions`
+- `funnel_summary`
+- `funnel_by_device`
+- `funnel_by_channel`
+- `funnel_by_user_type`
 
-Clean event-level analytical layer.
+## Key Funnel Findings
 
-### `session_summary`
+### Product View → Add to Cart
 
-One row per user session containing behavioral funnel indicators,
-engagement metrics, and purchase outcomes.
+Only 19.69% of product-view sessions progress to cart, making this the
+largest post-discovery conversion bottleneck.
 
-### `daily_kpis`
+### New vs Returning Users
 
-Daily product-health metrics for trend analysis and dashboarding.
+Returning users achieve a 4.23% Product View → Purchase conversion rate,
+compared with 1.36% for new users.
+
+### Device Performance
+
+Desktop and mobile funnel performance is relatively similar, so mobile is
+not currently treated as the primary conversion problem.
+
+### Funnel Instrumentation
+
+There are 4,848 recorded purchasing sessions, while 1,792 sessions complete
+the full strict tracked funnel.
+
+Strict-funnel conversion and overall purchase activity are therefore analyzed
+as separate metrics.
 
 ## Data Quality
 
@@ -68,20 +91,18 @@ The session model reconciles exactly with the raw source for:
 - 5,692 purchase events
 - 362,165 recorded purchase revenue
 
-Transaction IDs contain placeholder and reused values, so purchasing sessions
-and purchase events are used as the main conversion measures.
+Transaction identifiers contain placeholder and reused values, so purchasing
+sessions and purchase events are used as the primary conversion measures.
 
-## Planned Analysis
+## Next Analysis
 
-- Conversion funnel
-- Funnel segmentation
-- Product performance
+- Product and category performance
+- Product View → Cart diagnostics
+- New vs returning behavior
 - Cohort and retention analysis
 - Opportunity sizing
-- A/B experimentation
-- Statistical analysis
+- Experimentation
 - Power BI dashboard
-- Product recommendations
 
 ## Tech Stack
 
@@ -95,5 +116,4 @@ and purchase events are used as the main conversion measures.
 
 ## Status
 
-Day 2 complete — analytics foundation, KPI framework, session model,
-daily KPI layer, and source-to-model validation.
+Day 3 complete — ordered conversion funnel and segmentation analysis.
