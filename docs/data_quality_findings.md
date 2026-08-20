@@ -48,3 +48,24 @@ The corrected session model preserves:
 - Session-model revenue: 362,165
 
 This validates the session aggregation layer.
+
+## Product Identifier Quality
+
+Item-level validation found that `item_id` is not stable across event types
+in the obfuscated dataset.
+
+- Viewed item IDs: 426
+- Purchased item IDs: 809
+- Matching item IDs: 4
+
+Normalized product names are substantially more consistent:
+
+- Viewed product names: 422
+- Purchased product names: 396
+- Matching product names: 388
+
+The product model therefore uses normalized `item_name` as the canonical
+cross-event product identifier.
+
+Product category is treated as descriptive metadata rather than part of the
+product key.

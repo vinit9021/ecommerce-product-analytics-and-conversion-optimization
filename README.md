@@ -29,13 +29,14 @@ Scale:
 ## Analytics Architecture
 
 GA4 Public Events
-→ `events_base`
-→ `session_summary`
-→ `daily_kpis`
+→ clean event layer
+→ session model
 → ordered funnel
 → segmentation
 → product analysis
-→ Python statistics
+→ cohort analysis
+→ opportunity sizing
+→ experimentation
 → Power BI
 → product recommendations
 
@@ -48,6 +49,68 @@ Product View
 → Payment Information
 → Purchase
 
+## Key Funnel Findings
+
+### Product View → Add to Cart
+
+Only 19.69% of strict product-view sessions progress to cart, making
+product-intent formation a major funnel bottleneck.
+
+### New vs Returning
+
+Returning users achieve a 4.23% strict Product View → Purchase conversion
+rate compared with 1.36% for new users.
+
+### Device
+
+Desktop and mobile conversion performance is relatively similar, so device
+is not currently the primary optimization target.
+
+## Product Analysis
+
+The corrected product model uses normalized product names as canonical keys
+because item IDs are inconsistent across GA4 event types.
+
+The portfolio-level product-session View → Cart benchmark is 24.67%.
+
+High-volume products below this benchmark include:
+
+- YouTube Icon Tee Grey
+- Google Land & Sea French Terry
+- Google Sherpa Zip Hoodie Navy
+- YouTube Icon Tee Charcoal
+
+These products represent candidates for deeper opportunity sizing and
+experimentation.
+
+## Cohort Analysis
+
+November cohort retention:
+
+- Month 1: 5.84%
+- Month 2: 1.52%
+
+December Month-1 retention:
+
+- 2.52%
+
+Returning users convert strongly, but relatively few users become returning
+users within the observed period.
+
+## Data Quality
+
+The analytical model includes explicit validation for:
+
+- Session identifiers
+- Transaction identifiers
+- Revenue reconciliation
+- Product identifier consistency
+
+The session model reconciles to:
+
+- 5,692 purchase events
+- 362,165 purchase revenue
+
 ## Current BigQuery Models
 
 - `events_base`
@@ -58,51 +121,23 @@ Product View
 - `funnel_by_device`
 - `funnel_by_channel`
 - `funnel_by_user_type`
+- `item_events`
+- `product_session_behavior`
+- `product_performance`
+- `category_performance`
+- `product_opportunities`
+- `user_month_activity`
+- `cohort_retention`
 
-## Key Funnel Findings
+## Next
 
-### Product View → Add to Cart
+Day 5 will focus on:
 
-Only 19.69% of product-view sessions progress to cart, making this the
-largest post-discovery conversion bottleneck.
-
-### New vs Returning Users
-
-Returning users achieve a 4.23% Product View → Purchase conversion rate,
-compared with 1.36% for new users.
-
-### Device Performance
-
-Desktop and mobile funnel performance is relatively similar, so mobile is
-not currently treated as the primary conversion problem.
-
-### Funnel Instrumentation
-
-There are 4,848 recorded purchasing sessions, while 1,792 sessions complete
-the full strict tracked funnel.
-
-Strict-funnel conversion and overall purchase activity are therefore analyzed
-as separate metrics.
-
-## Data Quality
-
-The session model reconciles exactly with the raw source for:
-
-- 5,692 purchase events
-- 362,165 recorded purchase revenue
-
-Transaction identifiers contain placeholder and reused values, so purchasing
-sessions and purchase events are used as the primary conversion measures.
-
-## Next Analysis
-
-- Product and category performance
-- Product View → Cart diagnostics
-- New vs returning behavior
-- Cohort and retention analysis
-- Opportunity sizing
-- Experimentation
-- Power BI dashboard
+- Business opportunity sizing
+- Revenue scenarios
+- Python statistical analysis
+- A/B experiment design
+- Sample-size and significance analysis
 
 ## Tech Stack
 
@@ -116,4 +151,5 @@ sessions and purchase events are used as the primary conversion measures.
 
 ## Status
 
-Day 3 complete — ordered conversion funnel and segmentation analysis.
+Day 4 complete — product performance, product opportunity ranking, and cohort
+retention analysis.
