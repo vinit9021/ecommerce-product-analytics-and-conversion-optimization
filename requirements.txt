@@ -1,0 +1,11 @@
+﻿pandas
+numpy
+scipy
+statsmodels
+matplotlib
+pyarrow
+google-cloud-bigquery
+db-dtypes
+jupyter
+pytest
+ruff
