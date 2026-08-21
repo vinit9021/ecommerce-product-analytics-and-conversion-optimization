@@ -9,3 +9,5 @@ db-dtypes
 jupyter
 pytest
 ruff
+plotly
+streamlit

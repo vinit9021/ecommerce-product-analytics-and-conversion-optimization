@@ -1,4 +1,4 @@
-﻿# E-commerce Product Analytics & Conversion Optimization
+# E-commerce Product Analytics & Conversion Optimization
 
 End-to-end Product Analytics case study using event-level behavior from the
 Google Analytics 4 public Google Merchandise Store dataset.
@@ -221,3 +221,40 @@ Day 6:
 ## Status
 
 Day 5 complete — business opportunity sizing and experimentation framework.
+
+<!-- DASHBOARD_START -->
+
+## Interactive Analytics Dashboard
+
+The project includes a code-driven Streamlit + Plotly dashboard backed by
+BigQuery analytical views.
+
+### Dashboard Views
+
+**Executive Overview**
+
+![Executive Overview](images/01_executive_overview.png)
+
+**Funnel & Segments**
+
+![Funnel and Segments](images/02_funnel_segments.png)
+
+**Product Opportunities**
+
+![Product Opportunities](images/03_product_opportunities.png)
+
+**Retention & Experiment**
+
+![Retention and Experiment](images/04_retention_experiment.png)
+
+### Run Locally
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m streamlit run dashboard/app.py
+```
+
+> Product opportunity estimates are directional planning scenarios. Experiment
+> results shown in the dashboard are synthetic and are explicitly labelled.
+
+<!-- DASHBOARD_END -->
