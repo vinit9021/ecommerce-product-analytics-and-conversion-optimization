@@ -29,16 +29,16 @@ Scale:
 ## Analytics Architecture
 
 GA4 Public Events
-→ clean event layer
-→ session model
-→ ordered funnel
-→ segmentation
-→ product analysis
-→ cohort analysis
-→ opportunity sizing
-→ experimentation
+→ Clean Event Layer
+→ Session Model
+→ Ordered Funnel
+→ Segmentation
+→ Product Analysis
+→ Cohort Analysis
+→ Opportunity Sizing
+→ Experimentation
 → Power BI
-→ product recommendations
+→ Product Recommendations
 
 ## Primary Funnel
 
@@ -53,63 +53,118 @@ Product View
 
 ### Product View → Add to Cart
 
-Only 19.69% of strict product-view sessions progress to cart, making
-product-intent formation a major funnel bottleneck.
+Only 19.69% of strict product-view sessions progress to cart.
 
 ### New vs Returning
 
 Returning users achieve a 4.23% strict Product View → Purchase conversion
 rate compared with 1.36% for new users.
 
+New-user View → Cart is 17.03%, compared with 24.90% for returning users.
+
 ### Device
 
-Desktop and mobile conversion performance is relatively similar, so device
-is not currently the primary optimization target.
+Desktop and mobile performance are relatively similar, so device is not
+currently treated as the primary optimization target.
 
-## Product Analysis
+## Product Analytics
 
-The corrected product model uses normalized product names as canonical keys
-because item IDs are inconsistent across GA4 event types.
+The product portfolio View → Cart benchmark is 24.67%.
 
-The portfolio-level product-session View → Cart benchmark is 24.67%.
-
-High-volume products below this benchmark include:
+High-volume below-benchmark products include:
 
 - YouTube Icon Tee Grey
 - Google Land & Sea French Terry
 - Google Sherpa Zip Hoodie Navy
 - YouTube Icon Tee Charcoal
+- Google Heather Green Speckled products
 
-These products represent candidates for deeper opportunity sizing and
-experimentation.
+## Cohort Retention
 
-## Cohort Analysis
+November cohort:
 
-November cohort retention:
+- Month 1 retention: 5.84%
+- Month 2 retention: 1.52%
 
-- Month 1: 5.84%
-- Month 2: 1.52%
+December cohort:
 
-December Month-1 retention:
-
-- 2.52%
+- Month 1 retention: 2.52%
 
 Returning users convert strongly, but relatively few users become returning
-users within the observed period.
+users within the available observation window.
+
+## Business Opportunity
+
+Observed post-cart purchase rate:
+
+18.68%
+
+Average revenue per converted cart session:
+
+71.63
+
+For the top five product opportunities, estimated impact is:
+
+| Scenario | Incremental Purchases | Incremental Revenue |
+|---|---:|---:|
+| 25% gap closure | 201.5 | 14,437.20 |
+| 50% gap closure | 403.1 | 28,874.40 |
+| 100% gap closure | 806.2 | 57,748.81 |
+
+These values are directional planning scenarios rather than causal forecasts.
+
+## Experimentation
+
+Proposed experiment:
+
+Improve product-page purchase confidence for new users viewing high-volume,
+below-benchmark products.
+
+Primary metric:
+
+View → Add-to-Cart conversion.
+
+Baseline:
+
+17.03%
+
+Target:
+
+18.73%
+
+Required sample:
+
+7,944 users per variant.
+
+The repository also includes a reproducible synthetic two-proportion
+experiment analysis demonstrating:
+
+- Statistical significance testing
+- Confidence intervals
+- Absolute lift
+- Relative lift
+- Power-based sample-size planning
+
+Synthetic demonstration result:
+
+- Absolute lift: +1.70 percentage points
+- Relative lift: +9.98%
+- p-value: 0.0052
+- 95% CI: +0.51 to +2.89 percentage points
+
+The synthetic result is not presented as observed product impact.
 
 ## Data Quality
 
-The analytical model includes explicit validation for:
+The analysis explicitly validates:
 
 - Session identifiers
 - Transaction identifiers
 - Revenue reconciliation
 - Product identifier consistency
 
-The session model reconciles to:
-
-- 5,692 purchase events
-- 362,165 purchase revenue
+Transaction IDs and raw item IDs contain obfuscated/inconsistent values, so
+the analytical model uses more reliable metrics and canonical product names.
 
 ## Current BigQuery Models
 
@@ -128,16 +183,28 @@ The session model reconciles to:
 - `product_opportunities`
 - `user_month_activity`
 - `cohort_retention`
+- `business_opportunity_sizing`
+
+## Python Analytics
+
+- Statistical power analysis
+- A/B test sample-size calculation
+- Two-proportion z-test
+- Confidence intervals
+- Experiment decision logic
+- Automated tests
 
 ## Next
 
-Day 5 will focus on:
+Day 6:
 
-- Business opportunity sizing
-- Revenue scenarios
-- Python statistical analysis
-- A/B experiment design
-- Sample-size and significance analysis
+- Export dashboard-ready datasets
+- Build Power BI model
+- Executive overview
+- Funnel dashboard
+- Product opportunity dashboard
+- Retention dashboard
+- Experiment dashboard
 
 ## Tech Stack
 
@@ -145,11 +212,12 @@ Day 5 will focus on:
 - SQL
 - Python
 - Pandas
-- SciPy / Statsmodels
+- NumPy
+- SciPy
+- Statsmodels
 - Power BI
 - Git / GitHub
 
 ## Status
 
-Day 4 complete — product performance, product opportunity ranking, and cohort
-retention analysis.
+Day 5 complete — business opportunity sizing and experimentation framework.
